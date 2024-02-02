@@ -1,6 +1,13 @@
 .homepage{
     height: 100vh;
+    overflow-y: scroll;
+}
+.homepage::-webkit-scrollbar{
+    display: none;
 }
 .bg-gradient-blue{
     background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+}
+body{
+    overflow-x: hidden;
 }

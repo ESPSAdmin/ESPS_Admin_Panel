@@ -1,21 +1,27 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import SharedLayout from './SharedLayout';
-import { Admin, Home, Login, Product } from '../pages';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import SharedLayout from "./SharedLayout";
+import { Admin, Home, Login, Product } from "../pages";
+import { useAuthContext } from "../context";
 
 const Index = () => {
+  const { token } = useAuthContext();
 
-  // If token is not available, redirect to login
-  // if (!token) {
-  //   return <Navigate to="/login" />;
-  // }
+  if (!token) {
+    return (
+      <Routes>
+        <Route path="login" element={<Login />} />
+        <Route path="*" element={<Home />} />
+      </Routes>
+    );
+  }
 
   return (
     <>
       <Routes>
         <Route element={<SharedLayout />}>
-          <Route path='dashboard/admin' element={<Admin />} />
-          <Route path='dashboard/product' element={<Product />} />    
+          <Route path="dashboard/admin" element={<Admin />} />
+          <Route path="dashboard/product" element={<Product />} />
         </Route>
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../context'
 import { toast } from 'react-toastify';
@@ -20,8 +20,7 @@ const Login = () => {
             await loginHandler(loginCredential);
             // Check if token is set after successful login
             if (token) {
-                toast.success("login successfull")
-                navigate('/dashboard');
+                toast.success("login successful");
             } else {
                 console.error('Login failed');
             }
@@ -29,6 +28,15 @@ const Login = () => {
             console.error('An error occurred during login:', error);
         }
     };
+    useEffect(() => {
+        // If token exists, navigate to '/dashboard/admin'
+        if (token) {
+            console.log("Token exists, navigating to /dashboard/admin");
+            navigate('/dashboard/admin');
+        } else {
+            navigate('/login')
+        }
+    }, [token, navigate]);
 
     return (
         <div className='container-fluid bg-gradient-blue'>
